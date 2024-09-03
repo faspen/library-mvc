@@ -1,10 +1,16 @@
+using LibraryMVC.Dtos;
+using LibraryMVC.Interfaces;
 using LibraryMVC.Models;
+using LibraryMVC.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(LibraryMVCAutoMapper));
+builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 
 builder.Services.AddDbContext<LibraryMVCDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

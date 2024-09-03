@@ -1,6 +1,6 @@
-using LibraryMVC.Dtos.Book;
+using LibraryMVC.Dtos.Books;
 
-namespace LibraryMVC.Dtos.Author
+namespace LibraryMVC.Dtos.Authors
 {
     public class AuthorDto
     {

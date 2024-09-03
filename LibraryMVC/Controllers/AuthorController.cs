@@ -1,5 +1,7 @@
 using AutoMapper;
+using LibraryMVC.Dtos.Authors;
 using LibraryMVC.Interfaces;
+using LibraryMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryMVC.Controllers
@@ -15,15 +17,45 @@ namespace LibraryMVC.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult GetAuthors()
+        [HttpGet]
+        public IActionResult Index()
         {
-            var authors = _repository.GetAuthors();
+            var entities = _repository.GetAuthors();
+            var authors = _mapper.Map<List<AuthorDto>>(entities);
             return View(authors);
         }
 
+        [HttpGet]
         public IActionResult GetAuthor(int authorId)
         {
             var author = _repository.GetAuthor(authorId);
+            return View(author);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(AuthorAddEditDto author)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = _mapper.Map<Author>(author);
+                var saved = _repository.CreateAuthor(entity);
+                if (saved)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "An error occurred while saving the new Author.");
+                }
+            }
+
             return View(author);
         }
     }
