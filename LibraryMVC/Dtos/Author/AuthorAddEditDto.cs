@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LibraryMVC.Dtos.Author
+namespace LibraryMVC.Dtos.Authors
 {
     public class AuthorAddEditDto
     {

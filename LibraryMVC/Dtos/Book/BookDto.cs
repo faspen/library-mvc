@@ -1,4 +1,4 @@
-namespace LibraryMVC.Dtos.Book
+namespace LibraryMVC.Dtos.Books
 {
     public class BookDto
     {
