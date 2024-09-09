@@ -1,18 +1,18 @@
-using LibraryMVC.Dtos.Authors;
-using LibraryMVC.Dtos.Genres;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryMVC.Dtos.Books
 {
-    public class BookDto
+    public class BookAddEditDto
     {
         public int Id { get; set; }
+        
+        [Required]
         public string Title { get; set; }
         public string Blurb { get; set; }
 
+        [Required]
         public int AuthorId { get; set; }
-        public AuthorDto Author { get; set; }
 
         public int GenreId { get; set; }
-        public GenreDto Genre { get; set; }
     }
 }
