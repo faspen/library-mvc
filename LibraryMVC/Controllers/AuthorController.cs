@@ -28,7 +28,8 @@ namespace LibraryMVC.Controllers
         [HttpGet]
         public IActionResult GetAuthor(int authorId)
         {
-            var author = _repository.GetAuthor(authorId);
+            var entity = _repository.GetAuthor(authorId);
+            var author = _mapper.Map<AuthorDto>(entity);
             return View(author);
         }
 

@@ -1,3 +1,4 @@
+using LibraryMVC.Controllers;
 using LibraryMVC.Dtos;
 using LibraryMVC.Interfaces;
 using LibraryMVC.Models;
@@ -11,6 +12,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAutoMapper(typeof(LibraryMVCAutoMapper));
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 
 builder.Services.AddDbContext<LibraryMVCDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
