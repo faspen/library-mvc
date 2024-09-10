@@ -1,0 +1,23 @@
+@model IEnumerable<LibraryMVC.Dtos.Genres.GenreDto>
+
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h2>Genres</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var genre in Model)
+        {
+            <tr>
+                <td>@genre.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
