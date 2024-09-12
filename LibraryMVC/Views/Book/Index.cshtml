@@ -1,0 +1,36 @@
+@model IEnumerable<LibraryMVC.Dtos.Books.BookDto>
+
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h2>Books</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Blurb</th>
+            <th>Author</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Title</td>
+                <td>@book.Blurb</td>
+                <td>@book.Author.FirstName @book.Author.LastName</td>
+                @if (book.Genre != null) 
+                {
+                    <td>@book.Genre.Name</td>
+                }
+                else
+                {
+                    <td>None</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
