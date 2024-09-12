@@ -1,5 +1,6 @@
 using LibraryMVC.Interfaces;
 using LibraryMVC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryMVC.Repositories
 {
@@ -36,7 +37,11 @@ namespace LibraryMVC.Repositories
 
         public ICollection<Book> GetBooks()
         {
-            return _context.Books.OrderBy(x => x.Id).ToList();
+            return _context.Books
+                .Include(x => x.Author)
+                .Include(x => x.Genre)
+                .OrderBy(x => x.Id)
+                .ToList();
         }
 
         public bool Save()

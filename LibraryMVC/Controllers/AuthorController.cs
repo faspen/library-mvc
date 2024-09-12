@@ -33,31 +33,55 @@ namespace LibraryMVC.Controllers
             return View(author);
         }
 
-        [HttpGet]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(AuthorAddEditDto author)
+        {
+            if (ModelState.IsValid) 
+            {
+                var entity = _mapper.Map<Author>(author);
+                var result = _repository.CreateAuthor(entity);
+
+                if (result)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Something went wrong while saving.");
+                    return StatusCode(500, ModelState);
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
         public IActionResult Create()
         {
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create(AuthorAddEditDto author)
-        {
-            if (ModelState.IsValid)
-            {
-                var entity = _mapper.Map<Author>(author);
-                var saved = _repository.CreateAuthor(entity);
-                if (saved)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    ModelState.AddModelError("", "An error occurred while saving the new Author.");
-                }
-            }
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
+        // public IActionResult Create(AuthorAddEditDto author)
+        // {
+        //     if (ModelState.IsValid)
+        //     {
+        //         var entity = _mapper.Map<Author>(author);
+        //         var saved = _repository.CreateAuthor(entity);
+        //         if (saved)
+        //         {
+        //             return RedirectToAction(nameof(Index));
+        //         }
+        //         else
+        //         {
+        //             ModelState.AddModelError("", "An error occurred while saving the new Author.");
+        //         }
+        //     }
 
-            return View(author);
-        }
+        //     return View(author);
+        // }
     }
 }

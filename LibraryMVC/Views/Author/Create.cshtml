@@ -1,0 +1,18 @@
+@model LibraryMVC.Dtos.Authors.AuthorAddEditDto
+
+<form method="post" asp-controller="Author" asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group mb-1">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" type="text" class="form-control">
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-1">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" type="text" class="form-control">
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
