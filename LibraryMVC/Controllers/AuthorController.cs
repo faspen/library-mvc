@@ -54,7 +54,7 @@ namespace LibraryMVC.Controllers
             }
             else
             {
-                return BadRequest(ModelState);
+                return View("Error");
             }
         }
 
@@ -63,25 +63,44 @@ namespace LibraryMVC.Controllers
             return View();
         }
 
-        // [HttpPost]
-        // [ValidateAntiForgeryToken]
-        // public IActionResult Create(AuthorAddEditDto author)
-        // {
-        //     if (ModelState.IsValid)
-        //     {
-        //         var entity = _mapper.Map<Author>(author);
-        //         var saved = _repository.CreateAuthor(entity);
-        //         if (saved)
-        //         {
-        //             return RedirectToAction(nameof(Index));
-        //         }
-        //         else
-        //         {
-        //             ModelState.AddModelError("", "An error occurred while saving the new Author.");
-        //         }
-        //     }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var author = _repository.GetAuthor(id);
+            if (author == null)
+            {
+                return View("Error");
+            }
 
-        //     return View(author);
-        // }
+            var dto = _mapper.Map<AuthorAddEditDto>(author);
+            return View(dto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(AuthorAddEditDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_repository.AuthorExists(dto.Id))
+                {
+                    return View("Error");
+                }
+
+                var author = _mapper.Map<Author>(dto);
+                var result = _repository.UpdateAuthor(author);
+
+                if (result)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return StatusCode(500, ModelState);
+                }
+            }
+
+            return View("Error");
+        }
     }
 }

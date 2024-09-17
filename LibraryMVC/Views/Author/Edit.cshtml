@@ -1,6 +1,8 @@
 @model LibraryMVC.Dtos.Authors.AuthorAddEditDto
 
-<form method="post" asp-controller="Author" asp-action="Create">
+<h2>Edit Author</h2>
+
+<form method="post" asp-controller="Author" asp-action="Edit">
     <div class="form-group mb-1">
         <label asp-for="FirstName">First Name</label>
         <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter first name">
