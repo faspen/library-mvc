@@ -41,17 +41,48 @@ namespace LibraryMVC.Controllers
             {
                 var entity = _mapper.Map<Genre>(genre);
                 var saved = _repository.CreateGenre(entity);
+
                 if (saved)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     ModelState.AddModelError("", "An error occurred while saving the new Author.");
+                    return StatusCode(500, ModelState);
                 }
             }
+            else
+            {
+                return View("Error");
+            }
+        }
 
-            return View(genre);
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int genreId)
+        {
+            if (!_repository.GenreExists(genreId))
+                return View("Error");
+            
+            var genreToDelete = _repository.GetGenre(genreId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            if (!_repository.DeleteGenre(genreToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong while deleting!");
+                return StatusCode(500, ModelState);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
     }
 }

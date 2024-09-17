@@ -1,0 +1,12 @@
+@model LibraryMVC.Dtos.Genres.GenreAddEditDto
+
+<form method="post" asp-controller="Genre" asp-action="Create">
+    <div class="form-group mb-1">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" type="text" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
