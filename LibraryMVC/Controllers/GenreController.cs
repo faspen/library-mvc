@@ -63,13 +63,66 @@ namespace LibraryMVC.Controllers
             return View();
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int genreId)
+        [HttpGet]
+        public IActionResult Edit(int id)
         {
-            if (!_repository.GenreExists(genreId))
+            var genre = _repository.GetGenre(id);
+            if (genre == null)
+            {
+                return View("Error");
+            }
+
+            var dto = _mapper.Map<GenreAddEditDto>(genre);
+            return View(dto);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(GenreAddEditDto dto)
+        {
+            if (ModelState.IsValid)
+            {
+                if (!_repository.GenreExists(dto.Id))
+                {
+                    return View("Error");
+                }
+
+                var genre = _mapper.Map<Genre>(dto);
+                var result = _repository.UpdateGenre(genre);
+
+                if (result)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return StatusCode(500, ModelState);
+                }
+            }
+
+            return View("Error");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var genre = _repository.GetGenre(id);
+            if (genre == null)
+            {
+                return View("Error");
+            }
+
+            var dto = _mapper.Map<GenreAddEditDto>(genre);
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(GenreAddEditDto genre)
+        {
+            if (!_repository.GenreExists(genre.Id))
                 return View("Error");
             
-            var genreToDelete = _repository.GetGenre(genreId);
+            var genreToDelete = _repository.GetGenre(genre.Id);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

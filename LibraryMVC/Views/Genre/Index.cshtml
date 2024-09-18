@@ -12,6 +12,7 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +20,10 @@
         {
             <tr>
                 <td>@genre.Name</td>
+                <td>
+                    <a class="btn btn-sm btn-secondary me-1" asp-controller="Genre" asp-action="Edit" asp-route-id="@genre.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-controller="Genre" asp-action="Delete" asp-route-id="@genre.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

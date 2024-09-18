@@ -19,6 +19,7 @@ namespace LibraryMVC.Dtos
 
             CreateMap<Genre, GenreDto>();
             CreateMap<GenreAddEditDto, Genre>();
+            CreateMap<Genre, GenreAddEditDto>();
         }
     }
 }
