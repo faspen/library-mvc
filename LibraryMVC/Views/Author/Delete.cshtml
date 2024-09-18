@@ -1,19 +1,19 @@
 @model LibraryMVC.Dtos.Authors.AuthorAddEditDto
 
-<h2>Create Author</h2>
+<h2>Delete Author?</h2>
 
-<form method="post" asp-controller="Author" asp-action="Create">
+<form method="post" asp-controller="Author" asp-action="Delete">
     <div class="form-group mb-1">
         <label asp-for="FirstName">First Name</label>
-        <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter first name">
+        <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter first name" readonly>
         <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
     <div class="form-group mb-1">
         <label asp-for="LastName">Last Name</label>
-        <input asp-for="LastName" type="text" class="form-control" placeholder="Enter last name">
+        <input asp-for="LastName" type="text" class="form-control" placeholder="Enter last name" readonly>
         <span asp-validation-for="LastName" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
     </div>
 </form>

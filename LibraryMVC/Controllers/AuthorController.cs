@@ -102,5 +102,40 @@ namespace LibraryMVC.Controllers
 
             return View("Error");
         }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var author = _repository.GetAuthor(id);
+            if (author == null)
+            {
+                return View("Error");
+            }
+
+            var dto = _mapper.Map<AuthorAddEditDto>(author);
+            return View(dto);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(AuthorAddEditDto author)
+        {
+            if (!_repository.AuthorExists(author.Id))
+                return View("Error");
+            
+            var authorToDelete = _repository.GetAuthor(author.Id);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            if (!_repository.DeleteAuthor(authorToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong while deleting!");
+                return StatusCode(500, ModelState);
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
