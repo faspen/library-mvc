@@ -1,0 +1,26 @@
+@model LibraryMVC.Dtos.Books.BookAddEditDto
+
+<h2>Create Book</h2>
+
+<form method="post" asp-controller="Book" asp-action="Create">
+    <div class="form-group mb-1">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" type="text" class="form-control" placeholder="Enter book's title" required>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-1">
+        <label asp-for="Blurb">Blurb</label>
+        <textarea asp-for="Blurb" type="text" class="form-control" placeholder="Enter blurb"></textarea>
+    </div>
+    <div class="form-group mb-1">
+        @Html.LabelFor(m => m.AuthorId, "Author")
+        @Html.DropDownListFor(m => m.AuthorId, (SelectList)ViewBag.Authors, "Select Author", new { @class = "form-control" })
+    </div>
+    <div class="form-group mb-1">
+        @Html.LabelFor(m => m.GenreId, "Genre")
+        @Html.DropDownListFor(m => m.GenreId, (SelectList)ViewBag.Genres, "Select Genre", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
