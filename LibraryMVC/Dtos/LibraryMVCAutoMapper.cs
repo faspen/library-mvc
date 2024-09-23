@@ -16,6 +16,7 @@ namespace LibraryMVC.Dtos
 
             CreateMap<Book, BookDto>();
             CreateMap<BookAddEditDto, Book>();
+            CreateMap<Book, BookAddEditDto>();
 
             CreateMap<Genre, GenreDto>();
             CreateMap<GenreAddEditDto, Genre>();
