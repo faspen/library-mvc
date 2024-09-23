@@ -15,6 +15,7 @@
             <th>Blurb</th>
             <th>Author</th>
             <th>Genre</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -32,6 +33,10 @@
                 {
                     <td>None</td>
                 }
+                <td class="d-flex flex-row">
+                    <a class="btn btn-sm btn-secondary me-1" asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id">Edit</a>
+                    <a class="btn btn-sm btn-danger" asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
