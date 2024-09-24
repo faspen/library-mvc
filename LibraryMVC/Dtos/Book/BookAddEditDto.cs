@@ -13,6 +13,7 @@ namespace LibraryMVC.Dtos.Books
         [Required]
         public int AuthorId { get; set; }
 
+        [Required]
         public int GenreId { get; set; }
     }
 }
